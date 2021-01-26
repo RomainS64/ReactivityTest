@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:outlineAmbientShadowColor="@android:color/holo_blue_bright"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context="tempdereaction.MainActivity">
+
+    <TextView
+        android:id="@+id/titre1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Règles"
+        android:textColor="@android:color/white"
+        android:textSize="50dp" />
+    <TextView
+        android:id="@+id/regles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:layout_margin="10dp"
+        android:text="Ce jeu test votre réactivité.
+Le but est d’appuyer le plus rapidement un fois l’écran devenu rouge.
+Votre score sera votre temp de réaction en millisecondes."
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/reboot"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Reboot High Score" />
+
+    <TextView
+        android:id="@+id/titre2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="En savoir plus"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="50dp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:layout_margin="10dp"
+        android:text="Application créée dans le cadre d'un travail d'initiative personnelle encadré sur le temp de réaction.
+        \n\nCommanditaires:
+        \n\t\t-Maïwen Roux
+        \n\t\t-Sarah Bertomieu
+        \n\t\t-Léonie Chatelon
+        \n\nDéveloppeur:
+        \n\t\t-Romain Salha
+        \n\nLogiciel libre.
+
+"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+</LinearLayout>
+</ScrollView>

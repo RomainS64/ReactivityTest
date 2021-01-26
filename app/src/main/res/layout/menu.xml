@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:outlineAmbientShadowColor="@android:color/holo_blue_bright"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context="tempdereaction.MainActivity">
+
+    <ImageView
+        android:id="@+id/param"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/rouage" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:srcCompat="@drawable/titre" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="199dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:fontFamily="casual"
+        android:text="Start"
+
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="356dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="High Score"
+        android:textColor="@android:color/white"
+        android:textSize="50dp" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="40dp" />
+
+</LinearLayout>
