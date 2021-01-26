@@ -13,24 +13,24 @@ import android.widget.Button;
 
 import com.example.tempderaction.R;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.concurrent.Semaphore;
 
-    Thread THtempAttente,THtempReaction;
+public class MainActivity extends AppCompatActivity {
     Button click;
+    Thread THtempAttente,THtempReaction;
+    int tempReaction=99999;
     boolean momentDeClicker,fin,estClicke;
     int timerStart,timerClick;
-    int tempReaction=99999;
     Intent k;
     SharedPreferences.Editor editor;
     SharedPreferences manager;
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
-
-        manager=PreferenceManager.getDefaultSharedPreferences(this);
+        manager = PreferenceManager.getDefaultSharedPreferences(this);
         editor = manager.edit();
 
         setContentView(com.example.tempderaction.R.layout.activity_main);
@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         THtempAttente = new Thread(
                 new Runnable() {
                     public void run() {
-                        tempAttente();
+                        tempsAttente();
                     }
                 });
         THtempReaction = new Thread(
                 new Runnable() {
                     public void run() {
-                        tempReaction();
+                        tempsReaction();
                     }
                 });
 
@@ -69,17 +69,25 @@ public class MainActivity extends AppCompatActivity {
         THtempAttente.start();
         THtempReaction.start();
     }
+    //click s'active à chaques fois que l'utilisater tap sur l'écran
     private void click(){
+
         if (momentDeClicker) {
+
             estClicke=true;
             momentDeClicker = false;
             click.setBackgroundColor(Color.BLACK);
-            Log.e("MAIN", "affichage temps reaction reaction");
-            while(tempReaction==0);
+
+            //Vérifier que le thread a bien calculé le temp de reaction
+            try {
+                wait();
+            }catch (Throwable e){
+                e.printStackTrace();
+            }
             click.setText("Reactivity time\n " + tempReaction + "ms");
             fin = true;
+
         } else if (fin) {
-            Log.e("MAIN", "[RELANCE]");
             if(manager.getInt("score",10000)>tempReaction){
                 editor.putInt("score",tempReaction);
                 editor.commit();
@@ -93,45 +101,45 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    private void tempAttente() {
+    //tempAttente permet de determiner le temps qu'il faudra patienter et d'attendre durant celui-ci
+    private void tempsAttente() {
         click.setBackgroundColor(Color.BLACK);
         click.setText("Ready ?");
         click.setTextColor(Color.WHITE);
+
+        //initialisation du moment auquel il faudra cliquer
         timerStart =(int)System.currentTimeMillis();
         timerStart+=(int)(4+Math.random()*7)*1000;
 
+        //tant que l'utilisateur n'a pas cliqué
         while(!fin){
 
             if(timerStart<(int)System.currentTimeMillis()){
 
                 click.setBackgroundColor(Color.RED);
                 click.setText("TAP !");
-                Log.e("MAIN","tempAttente: moment de clicker = true");
-
                 momentDeClicker=true;
-
                 break;
             }
         }
     }
-    private void tempReaction() {
-        Log.e("MAIN", "tempReaction: Start");
-        boolean exMomentClicke=false;
+   //tempReaction permet de déterminer le temp de réaction de l'utilisateur
+    private void tempsReaction(){
+        boolean premierMomentClick=true;
         while(!fin){
-            if(momentDeClicker && !estClicke && !exMomentClicke){
-                Log.e("MAIN", "tempReaction: Start du tier reaction");
+            //s'il s'agit du debut du calcul du temp de reaction...
+            if(momentDeClicker && !estClicke && premierMomentClick){
                 timerClick = (int) System.currentTimeMillis();
-                exMomentClicke=true;
-
+                premierMomentClick=false;
             }
             if(estClicke){
-                Log.e("MAIN", "tempReaction: Click");
                 tempReaction = (int) System.currentTimeMillis() - timerClick;
                 break;
             }
         }
-
-
+        synchronized (this){
+            notifyAll();
+        }
 
     }
 }
